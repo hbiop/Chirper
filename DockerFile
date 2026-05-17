@@ -1,0 +1,11 @@
+FROM php:8.3-alpine
+
+RUN echo "https://mirror.yandex.ru/mirrors/alpine/v3.19/main" > /etc/apk/repositories && \
+    echo "https://mirror.yandex.ru/mirrors/alpine/v3.19/community" >> /etc/apk/repositories
+
+RUN apk update && apk add --no-cache git zip unzip nodejs npm
+
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+WORKDIR /var/www/html
+
+CMD ["php", "-S", "0.0.0.0:80", "-t", "public", "public/index.php"]

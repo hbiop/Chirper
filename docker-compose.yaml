@@ -1,0 +1,8 @@
+services:
+  web:
+    build: .
+    container_name: php-server
+    ports:
+      - "9090:80"
+    volumes:
+      - ./src:/var/www/html:Z
